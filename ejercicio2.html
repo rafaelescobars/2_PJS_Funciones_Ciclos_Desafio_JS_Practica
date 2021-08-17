@@ -41,7 +41,7 @@
     //https://stackoverflow.com/questions/13893138/javascript-click-event-listener-on-multiple-elements-and-get-target-id //11 // Why is nobody mentioning a single event which checks for the clicked element?
     document.body.addEventListener('click', (e) => {
       let target = e.target;
-      if (target.nodeName = 'button') {
+      if (target.nodeName = 'BUTTON') {
         caja.style.backgroundColor = target.style.backgroundColor;
       }
       e.stopPropagation()

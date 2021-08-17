@@ -2,41 +2,82 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 3</title>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3</title>
 </head>
 
 <body>
+  <div>
     <div>
+      <h2>
+        Resultado: <span class="resultado"></span>
+      </h2>
+      <div>
         <div>
-            <h2>
-                Resultado: <span class="resultado"></span>
-            </h2>
-            <div>
-                <div>
-                    <div>
-                        <label for="">Valor 1</label>
-                        <input id="valor1" type="text">
-                    </div>
-                    <div>
-                        <label for="">Valor 2</label>
-                        <input id="valor2" type="text">
-                    </div>
-                    <div style="display: flex">
-                        <button id="btn-sumar" type="button">
-                            Sumar
-                        </button>
-                        <button id="btn-restar" type="button">
-                            Restar
-                        </button>
-                    </div>
-                </div>
-            </div>
+          <div>
+            <label for="">Valor 1</label>
+            <input id="valor1" type="text">
+          </div>
+          <div>
+            <label for="">Valor 2</label>
+            <input id="valor2" type="text">
+          </div>
+          <div style="display: flex">
+            <button id="btn-sumar" type="button">
+              Sumar
+            </button>
+            <button id="btn-restar" type="button">
+              Restar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-    <script>
-    // Escríbe aquí tu código
-    </script>
+  </div>
+  <script>
+    //Definir Variables
+    let valor1 = document.getElementById("valor1");
+    let valor2 = document.getElementById("valor2");
+    console.log(valor1.value);
+    let resultado = document.getElementsByClassName("resultado")[0];
+    //regex
+    let regex = /[0-9]/;
+    //Validar
+    let validar = (num1, num2) => {
+      num1 = parseFloat(num1);
+      if (regex.test(num1) && regex.test(num2)) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+
+    //Click
+    document.body.addEventListener('click', (e) => {
+      let target = e.target;
+      if (target.nodeName == 'BUTTON') {
+        if (validar(valor1.value, valor2.value)) {
+          switch (target.innerHTML.trim()) {
+            case "Sumar":
+              resultado.innerHTML = parseFloat(valor1.value) + parseFloat(valor2.value);
+              break
+            case "Restar":
+              if (parseFloat(valor2.value) > parseFloat(valor1.value)) {
+                resultado.innerHTML = 0
+                break
+              } else {
+                resultado.innerHTML = parseFloat(valor1.value) - parseFloat(valor2.value);
+                break
+              }
+          }
+        } else {
+          valor1.value = "";
+          valor2.value = "";
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>
