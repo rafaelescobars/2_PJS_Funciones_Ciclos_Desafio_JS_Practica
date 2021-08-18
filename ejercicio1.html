@@ -64,37 +64,47 @@
     let botton = document.getElementById("botton");
 
     //RegEx
-    let regex = /[a-z]/gim;
+    const regex = new RegExp('^[a-zA-Z ]{2,100}$');
 
-    //Función SetStyle
-    // let setStyle = (element, propertyObject) => {
-    //     for (let property in propertyObject) {
-    //         element.style[property] = propertyObject[property];
-    //     }
-    // };
+
 
     //Función Validar
-    let validate = (event) => {
-      event.preventDefault();
-      console.log(nombre.value)
-      if (
-        regex.test(nombre.value) &&
-        regex.test(asunto.value) &&
-        regex.test(mensaje.value)
-      ) {
-        resultado.innerHTML = "Mensaje enviado con éxito !!!";
-        errorNombre.innerHTML = "";
-        errorAsunto.innerHTML = "";
-        errorMensaje.innerHTML = "";
-      } else {
-        resultado.innerHTML = ""
-        errorNombre.innerHTML = "El nombre es requerido.";
-        errorAsunto.innerHTML = "El asunto es requerido.";
-        errorMensaje.innerHTML = "El mensaje es requerido.";
-      }
-    };
+    let validate = (input1, input2, input3) => {
 
-    formulario.addEventListener("submit", validate);
+      //condition
+      let condition = true;
+
+      if (regex.test(input1) == false || input1 == "") {
+        errorNombre.innerHTML = "El nombre es requerido."
+        condition = false;
+      }
+      if (regex.test(input2) == false || input2 == "") {
+        errorAsunto.innerHTML = "El asunto es requerido."
+        condition = false;
+      }
+      if (regex.test(input3) == false) {
+        errorMensaje.innerHTML = "El mensaje es requerido."
+        condition = false;
+      }
+      return condition;
+    }
+
+    //Función limpiar
+    let clear = () => {
+      errorNombre.innerHTML = "";
+      errorAsunto.innerHTML = "";
+      errorMensaje.innerHTML = "";
+      resultado.innerHTML = "";
+    }
+
+    //addEventListener
+    formulario.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clear();
+      if (validate(nombre.value, asunto.value, mensaje.value)) {
+        resultado.innerHTML = "Mensaje enviado con éxito!!!"
+      }
+    })
   </script>
 </body>
 
